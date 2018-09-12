@@ -18,11 +18,9 @@ class TodosController extends Controller
     {
         try {
             $todo_items = Todo::get();
-            dd($todo_items);
-
-            return respose()->json([], 200);
+            return response()->json($todo_items->toArray(), 200);
         } catch(\Exception $e) {
-            return respose()->json([], 500);
+            return response()->json(['message' => 'API server error'], 500);
         }
     }
 
