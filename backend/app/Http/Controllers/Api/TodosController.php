@@ -102,4 +102,11 @@ class TodosController extends Controller
     {
         //
     }
+
+    public function emptyItems()
+    {
+        \DB::table('todos')->delete();
+
+        return response()->json(['status' => 'success'], 200);
+    }
 }
