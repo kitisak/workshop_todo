@@ -36,7 +36,7 @@
 				html +=		'<div class="form">'
 				html +=		'<div class="form-group form-row row">'
 				html +=					'<div class="col-10">'
-				html +=				      	'<label class="statusClass">'
+				html +=				      	'<label class="'+ statusClass +'">'
 				html +=				      		'<input type="checkbox" name="todo['+item.id+']" class="mr-3" onchange="updateStatus('+ item.id +')"> ' + item.message
 				html +=				      	'</label>'
 				html +=					'</div>'
