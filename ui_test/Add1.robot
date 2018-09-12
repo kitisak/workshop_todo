@@ -1,5 +1,6 @@
 *** Settings ***
 Library  SeleniumLibrary
+Library  RequestsLibrary
 Test Teardown  Close Browser
 
 *** Variables ***
@@ -7,25 +8,28 @@ Test Teardown  Close Browser
 
 *** Testcases ***
 Add ซื้อข้าว
+  Delete All Item
   เข้าไปยังหน้า index.html
-  กรอกข้อมูล  just a test items
+  กรอกข้อมูล  ซื้อข้าว
   กดปุ่มเพิ่ม
-  มีไอเทมเพิ่ม  just a test items
+  มีไอเทมเพิ่ม  ซื้อข้าว
 
 Add sleep
+  Delete All Item
   เข้าไปยังหน้า index.html
   กรอกข้อมูล  sleep
   กดปุ่มเพิ่ม
   มีไอเทมเพิ่ม  sleep
 
-
 Add 19 length
+  Delete All Item
   เข้าไปยังหน้า index.html
   กรอกข้อมูล  A234567890123456789
   กดปุ่มเพิ่ม
   มีไอเทมเพิ่ม  A234567890123456789
 
 Add 20 length
+  Delete All Item
   เข้าไปยังหน้า index.html
   กรอกข้อมูล  A2345678901234567890
   กดปุ่มเพิ่ม
@@ -45,5 +49,10 @@ Add 20 length
   Click Element  id:btnAdd
 
 มีไอเทมเพิ่ม
-  [Arguments]  ${name}
-  Wait Until Element Contains  xpath:////*[@id="todoList"]/div[1]/div/div/div[1]/label/input  ${name}
+  Wait Until Page Contains Element  xpath://*[@id="todoList"]/div[1]/div/div
+
+Delete All Item
+  Create Session  api  http://workshopapi.democnc.com
+  ${resp}=  Delete Request  api  /api/todo
+  Should be equal  ${resp.status_code}  ${200}
+  

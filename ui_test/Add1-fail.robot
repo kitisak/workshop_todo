@@ -1,5 +1,6 @@
 *** Settings ***
 Library  SeleniumLibrary
+Library  RequestsLibrary
 Test Teardown  Close Browser
 
 *** Variables ***
@@ -7,6 +8,7 @@ Test Teardown  Close Browser
 
 *** Testcases ***
 Test อักขระพิเศษ
+  Delete All Item
   เข้าไปยังหน้า index.html
   กรอกข้อมูล  @%&*()?&!
   กดปุ่มเพิ่ม
@@ -14,6 +16,7 @@ Test อักขระพิเศษ
   ไม่มีไอเทมเพิ่ม  @%&*()?&!
 
 Test ความยาวเกิน 20
+  Delete All Item
   เข้าไปยังหน้า index.html
   กรอกข้อมูล  123456789012345678901
   กดปุ่มเพิ่ม
@@ -22,10 +25,9 @@ Test ความยาวเกิน 20
 
 *** Keywords ***
 เข้าไปยังหน้า index.html
-  Open Browser  https://malee.democnc.com/en
+  Open Browser  http://workshop.democnc.com
   ...  browser=Chrome
   Maximize Browser Window
-  Click Element  xpath://div[1]/div[2]/div[2]/div/div/div[6]/a
 
 กรอกข้อมูล 
   [Arguments]  ${name}
@@ -38,5 +40,9 @@ AlertMSG
   Alert Should Be Present  something went wrong
   
 ไม่มีไอเทมเพิ่ม
-  [Arguments]  ${name}
-  Wait Until Element Does Not Contain  xpath://*[@class="page-content"]/div[3]  ${name}
+  Wait Until Page Does Not Contain  xpath://*[@id="todoList"]/div[1]/div/div
+
+Delete All Item
+  Create Session  api  http://workshopapi.democnc.com
+  ${resp}=  Delete Request  api  /api/todo
+  Should be equal  ${resp.status_code}  ${200}

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.4 (Python 3.7.0 on win32)" generated="20180912 16:49:34.724">
+<suite id="s1" name="Add1-fail" source="C:\unittest\todo-robot\workshop_todo\ui_test\Add1-fail.robot">
+<test id="s1-t1" name="Test อักขระพิเศษ">
+<kw name="Delete All Item">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>api</arg>
+<arg>http://workshopapi.democnc.com</arg>
+</arguments>
+<msg timestamp="20180912 16:49:34.925" level="INFO">Creating Session using : alias=api, url=http://workshopapi.democnc.com, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20180912 16:49:34.925" endtime="20180912 16:49:34.926"></status>
+</kw>
+<kw name="Delete Request" library="RequestsLibrary">
+<doc>Send a DELETE request on the session object found using the</doc>
+<arguments>
+<arg>api</arg>
+<arg>/api/todo</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20180912 16:49:35.045" level="INFO">Delete Request using : alias=api, uri=/api/todo, data=(),                     headers=None, allow_redirects=True </msg>
+<msg timestamp="20180912 16:49:35.045" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20180912 16:49:34.926" endtime="20180912 16:49:35.045"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>${200}</arg>
+</arguments>
+<status status="PASS" starttime="20180912 16:49:35.045" endtime="20180912 16:49:35.046"></status>
+</kw>
+<status status="PASS" starttime="20180912 16:49:34.925" endtime="20180912 16:49:35.046"></status>
+</kw>
+<kw name="เข้าไปยังหน้า index.html">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>http://workshop.democnc.com</arg>
+<arg>browser=Chrome</arg>
+</arguments>
+<msg timestamp="20180912 16:49:35.047" level="INFO">Opening browser 'Chrome' to base url 'http://workshop.democnc.com'.</msg>
+<status status="PASS" starttime="20180912 16:49:35.047" endtime="20180912 16:49:41.652"></status>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20180912 16:49:41.652" endtime="20180912 16:49:42.772"></status>
+</kw>
+<status status="PASS" starttime="20180912 16:49:35.046" endtime="20180912 16:49:42.772"></status>
+</kw>
+<kw name="กรอกข้อมูล">
+<arguments>
+<arg>@%&amp;*()?&amp;!</arg>
+</arguments>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:todoName</arg>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20180912 16:49:42.773" level="INFO">Typing text '@%&amp;*()?&amp;!' into text field 'id:todoName'.</msg>
+<status status="PASS" starttime="20180912 16:49:42.773" endtime="20180912 16:49:42.878"></status>
+</kw>
+<status status="PASS" starttime="20180912 16:49:42.772" endtime="20180912 16:49:42.878"></status>
+</kw>
+<kw name="กดปุ่มเพิ่ม">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath:</arg>
+</arguments>
+<msg timestamp="20180912 16:49:42.878" level="INFO">Clicking element 'xpath:'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180912 16:49:43.173" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-11.png"&gt;&lt;img src="selenium-screenshot-11.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180912 16:49:42.893" endtime="20180912 16:49:43.173"></status>
+</kw>
+<msg timestamp="20180912 16:49:43.176" level="FAIL">InvalidSelectorException: Message: invalid selector: Unable to locate an element with the xpath expression  because of the following error:
+SyntaxError: Failed to execute 'evaluate' on 'Document': The string '' is not a valid XPath expression.
+  (Session info: chrome=68.0.3440.106)
+  (Driver info: chromedriver=2.41.578737 (49da6702b16031c40d63e5618de03a32ff6c197e),platform=Windows NT 10.0.17134 x86_64)
+</msg>
+<status status="FAIL" starttime="20180912 16:49:42.878" endtime="20180912 16:49:43.176"></status>
+</kw>
+<status status="FAIL" starttime="20180912 16:49:42.878" endtime="20180912 16:49:43.176"></status>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary" type="teardown">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20180912 16:49:43.177" endtime="20180912 16:49:45.338"></status>
+</kw>
+<status status="FAIL" starttime="20180912 16:49:34.924" endtime="20180912 16:49:45.338" critical="yes">InvalidSelectorException: Message: invalid selector: Unable to locate an element with the xpath expression  because of the following error:
+SyntaxError: Failed to execute 'evaluate' on 'Document': The string '' is not a valid XPath expression.
+  (Session info: chrome=68.0.3440.106)
+  (Driver info: chromedriver=2.41.578737 (49da6702b16031c40d63e5618de03a32ff6c197e),platform=Windows NT 10.0.17134 x86_64)
+</status>
+</test>
+<test id="s1-t2" name="Test ความยาวเกิน 20">
+<kw name="Delete All Item">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>api</arg>
+<arg>http://workshopapi.democnc.com</arg>
+</arguments>
+<msg timestamp="20180912 16:49:45.342" level="INFO">Creating Session using : alias=api, url=http://workshopapi.democnc.com, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20180912 16:49:45.342" endtime="20180912 16:49:45.342"></status>
+</kw>
+<kw name="Delete Request" library="RequestsLibrary">
+<doc>Send a DELETE request on the session object found using the</doc>
+<arguments>
+<arg>api</arg>
+<arg>/api/todo</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20180912 16:49:45.414" level="INFO">Delete Request using : alias=api, uri=/api/todo, data=(),                     headers=None, allow_redirects=True </msg>
+<msg timestamp="20180912 16:49:45.414" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20180912 16:49:45.342" endtime="20180912 16:49:45.414"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>${200}</arg>
+</arguments>
+<status status="PASS" starttime="20180912 16:49:45.414" endtime="20180912 16:49:45.414"></status>
+</kw>
+<status status="PASS" starttime="20180912 16:49:45.342" endtime="20180912 16:49:45.414"></status>
+</kw>
+<kw name="เข้าไปยังหน้า index.html">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>http://workshop.democnc.com</arg>
+<arg>browser=Chrome</arg>
+</arguments>
+<msg timestamp="20180912 16:49:45.415" level="INFO">Opening browser 'Chrome' to base url 'http://workshop.democnc.com'.</msg>
+<status status="PASS" starttime="20180912 16:49:45.415" endtime="20180912 16:49:48.524"></status>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20180912 16:49:48.524" endtime="20180912 16:49:49.647"></status>
+</kw>
+<status status="PASS" starttime="20180912 16:49:45.415" endtime="20180912 16:49:49.647"></status>
+</kw>
+<kw name="กรอกข้อมูล">
+<arguments>
+<arg>123456789012345678901</arg>
+</arguments>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>id:todoName</arg>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20180912 16:49:49.649" level="INFO">Typing text '123456789012345678901' into text field 'id:todoName'.</msg>
+<status status="PASS" starttime="20180912 16:49:49.648" endtime="20180912 16:49:49.775"></status>
+</kw>
+<status status="PASS" starttime="20180912 16:49:49.648" endtime="20180912 16:49:49.775"></status>
+</kw>
+<kw name="กดปุ่มเพิ่ม">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath:</arg>
+</arguments>
+<msg timestamp="20180912 16:49:49.775" level="INFO">Clicking element 'xpath:'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180912 16:49:50.071" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-12.png"&gt;&lt;img src="selenium-screenshot-12.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180912 16:49:49.790" endtime="20180912 16:49:50.071"></status>
+</kw>
+<msg timestamp="20180912 16:49:50.072" level="FAIL">InvalidSelectorException: Message: invalid selector: Unable to locate an element with the xpath expression  because of the following error:
+SyntaxError: Failed to execute 'evaluate' on 'Document': The string '' is not a valid XPath expression.
+  (Session info: chrome=68.0.3440.106)
+  (Driver info: chromedriver=2.41.578737 (49da6702b16031c40d63e5618de03a32ff6c197e),platform=Windows NT 10.0.17134 x86_64)
+</msg>
+<status status="FAIL" starttime="20180912 16:49:49.775" endtime="20180912 16:49:50.072"></status>
+</kw>
+<status status="FAIL" starttime="20180912 16:49:49.775" endtime="20180912 16:49:50.072"></status>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary" type="teardown">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20180912 16:49:50.072" endtime="20180912 16:49:52.214"></status>
+</kw>
+<status status="FAIL" starttime="20180912 16:49:45.341" endtime="20180912 16:49:52.214" critical="yes">InvalidSelectorException: Message: invalid selector: Unable to locate an element with the xpath expression  because of the following error:
+SyntaxError: Failed to execute 'evaluate' on 'Document': The string '' is not a valid XPath expression.
+  (Session info: chrome=68.0.3440.106)
+  (Driver info: chromedriver=2.41.578737 (49da6702b16031c40d63e5618de03a32ff6c197e),platform=Windows NT 10.0.17134 x86_64)
+</status>
+</test>
+<status status="FAIL" starttime="20180912 16:49:34.726" endtime="20180912 16:49:52.217"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="2">Critical Tests</stat>
+<stat pass="0" fail="2">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="2" id="s1" name="Add1-fail">Add1-fail</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
