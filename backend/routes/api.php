@@ -17,6 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('todos', 'Api\TodosController');
+Route::resource('todo', 'Api\TodosController');
 
-Route::delete('todos', 'Api\TodosController@emptyItems');
+Route::delete('todo', 'Api\TodosController@emptyItems');
