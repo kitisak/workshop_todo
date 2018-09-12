@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use \App\Http\Controllers\Controller as Controller;
+use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
-
 use App\Models\Todo;
 
 class TodosController extends Controller
@@ -42,12 +41,20 @@ class TodosController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = \Validator::make($request->all(), [
+            'messages' => 'required|max:20',
+        ]);
+
+        if ($validator->fails()) {
+            $firstErrorMessage = $validator->errors()->first();
+            return response()->json(['error' => $firstErrorMessage], 422);
+        }
+
         $todo = new \App\Models\Todo;
-        $todo->message = $request->input('message');
+        $todo->messages = $request->input('messages');
         $todo->save();
 
-        $response = $todo->toJson();
-
+        $response = response()->json($todo->toArray(), 200);
         return $response;
     }
 
@@ -94,5 +101,12 @@ class TodosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function emptyItems()
+    {
+        \DB::table('todos')->delete();
+
+        return response()->json(['status' => 'success'], 200);
     }
 }

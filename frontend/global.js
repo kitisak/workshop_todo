@@ -1,4 +1,3 @@
-
 $(function() {
 
 	alert(todo_name);
