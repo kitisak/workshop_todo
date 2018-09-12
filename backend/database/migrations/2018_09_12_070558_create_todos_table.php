@@ -15,7 +15,7 @@ class CreateTodosTable extends Migration
     {
         Schema::create('todos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('messages');
+            $table->string('messages', 20);
             $table->timestamps();
         });
     }
