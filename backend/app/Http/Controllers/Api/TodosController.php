@@ -41,13 +41,14 @@ class TodosController extends Controller
      */
     public function store(Request $request)
     {
-        // $validation = $request->validate([
-        //     'messages' => 'required|max:20',
-        // ]);
+        $validator = \Validator::make($request->all(), [
+            'messages' => 'required|max:20',
+        ]);
 
-        // if ($validation->fails()) {
-        //     echo 'validate fail';
-        // }
+        if ($validator->fails()) {
+            $firstErrorMessage = $validator->errors()->first();
+            return response()->json(['error' => $firstErrorMessage], 422);
+        }
 
         $todo = new \App\Models\Todo;
         $todo->messages = $request->input('messages');
