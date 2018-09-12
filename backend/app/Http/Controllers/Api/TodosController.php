@@ -42,7 +42,7 @@ class TodosController extends Controller
     public function store(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'messages' => 'required|max:20',
+            'message' => 'required|max:20',
         ]);
 
         if ($validator->fails()) {
@@ -51,7 +51,7 @@ class TodosController extends Controller
         }
 
         $todo = new \App\Models\Todo;
-        $todo->messages = $request->input('messages');
+        $todo->message = $request->input('message');
         $todo->save();
 
         $response = response()->json($todo->toArray(), 200);
@@ -89,7 +89,26 @@ class TodosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = \Validator::make($request->all(), [
+            'message' => 'required|max:20',
+        ]);
+
+        if ($validator->fails()) {
+            $firstErrorMessage = $validator->errors()->first();
+            return response()->json(['error' => $firstErrorMessage], 422);
+        }
+
+        $todo = \App\Models\Todo::find($id);
+
+        if (empty($todo)) {
+            return response()->json(['error' => 'Not found Todo Item.'], 422);
+        }
+
+        $todo->message = $request->input('message');
+        $todo->save();
+
+        $response = response()->json($todo->toArray(), 200);
+        return $response;
     }
 
     /**
