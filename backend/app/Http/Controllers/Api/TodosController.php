@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreTodo;
 use App\Models\Todo;
 
 class TodosController extends Controller
@@ -40,17 +39,21 @@ class TodosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTodo $request)
+    public function store(Request $request)
     {
-        if (!$request->validated()) {
-            return 'Validate False';
-        }
+        // $validation = $request->validate([
+        //     'messages' => 'required|max:20',
+        // ]);
+
+        // if ($validation->fails()) {
+        //     echo 'validate fail';
+        // }
 
         $todo = new \App\Models\Todo;
         $todo->messages = $request->input('messages');
         $todo->save();
 
-        $response = $todo->toJson();
+        $response = response()->json($todo->toArray(), 200);
         return $response;
     }
 
