@@ -122,6 +122,21 @@ class TodosController extends Controller
         //
     }
 
+    public function doneItem($id)
+    {
+        $todo = \App\Models\Todo::find($id);
+
+        if (empty($todo)) {
+            return response()->json(['error' => 'Not found Todo Item.'], 422);
+        }
+
+        $todo->status = 'done';
+        $todo->save();
+
+        $response = response()->json($todo->toArray(), 200);
+        return $response;
+    }
+
     public function emptyItems()
     {
         \DB::table('todos')->delete();
