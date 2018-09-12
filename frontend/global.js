@@ -4,10 +4,7 @@
 
 
 	$('#formAddtodo').submit(function(e){
-
 		e.preventDefault();
-
-
 		$.post('http://workshopapi.democnc.com/api/todo', {
 			'message' : $('[name=todoName]').val().trim()
 		} ,function(response){
@@ -32,12 +29,15 @@
 			var html = "";
 			$(response).each(function(i, item ){
 
+				var statusClass = '';
+				if (item.status == 'done') statusClass = 'font-strike';
+
 				html += '<div class="listItem p-3">'
 				html +=		'<div class="form">'
 				html +=		'<div class="form-group form-row row">'
 				html +=					'<div class="col-10">'
-				html +=				      	'<label>'
-				html +=				      		'<input type="checkbox" class="mr-3" onchange="updateStatus('+ item.id +')"> ' + item.message
+				html +=				      	'<label class="statusClass">'
+				html +=				      		'<input type="checkbox" name="todo['+item.id+']" class="mr-3" onchange="updateStatus('+ item.id +')"> ' + item.message
 				html +=				      	'</label>'
 				html +=					'</div>'
 				html +=					'<div class="col-2">'
@@ -49,51 +49,62 @@
 			});
 									
 			$('#todoList').append(html);
-		});
-
-
-	
+		});	
 	}
 
 	function editItem(){
 		$.ajax({
-			url : '',
-		           method : "POST",
-		           success : function (data){
+		   url : 'http://workshopapi.democnc.com/api/todo/' + id,
+           method : "PUT",
+           success : function (data){
+           	if (response.id){
+				location.reload();
+			} else {
+				alert('something went wrong. pleases try again later.');
+			}
+           },
+           error : function (data) {
 
-		           },
-		           error : function (data) {
-
-		           },
+           },
 		})
 	}
 
 	function deleteItem(id){
-		alert('delete' + id);
-		return;
+		
 		$.ajax({
-			url : '',
-		           method : "DELETE",
-		           success : function (data){
-
-		           },
-		           error : function (data) {
-
-		           },
+		url : 'http://workshopapi.democnc.com/api/todo/' + id,
+           method : "DELETE",
+           success : function (data){
+           	if (data.status == 'success'){
+           		location.reload();
+           	} else {
+           		alert('something went wrong.')
+           	}
+           },
+           error : function (data) {
+           		alert('something went wrong.')
+           },
 		})
 	}
 
-	function updateStatus(){
-		alert(1);
+	function updateStatus(id){
+
 		$.ajax({
-			url : '',
-		           method : "POST",
-		           success : function (data){
+			url : 'http://workshopapi.democnc.com/api/todo/' + id + '/done',
+			method : "PUT",
+			success : function (data){
 
-		           },
-		           error : function (data) {
+				console.log(data);
 
-		           },
+	           	if (data.id){
+	           		location.reload();
+	           	} else {
+	           		// alert('something went wrong.')
+	           	}
+	           },
+	           error : function (data) {
+	           		alert('something went wrong.')
+	           },
 		})
 	}
 // });  
