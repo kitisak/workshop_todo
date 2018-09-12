@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use \App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Todo;
+
 class TodosController extends Controller
 {
     /**
@@ -14,8 +16,12 @@ class TodosController extends Controller
      */
     public function index()
     {
-        //
-        echo 'list todos';
+        try {
+            $todo_items = Todo::get();
+            return response()->json($todo_items->toArray(), 200);
+        } catch(\Exception $e) {
+            return response()->json(['message' => 'API server error'], 500);
+        }
     }
 
     /**
@@ -36,7 +42,13 @@ class TodosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $todo = new \App\Models\Todo;
+        $todo->message = $request->input('message');
+        $todo->save();
+
+        $response = $todo->toJson();
+
+        return $response;
     }
 
     /**
