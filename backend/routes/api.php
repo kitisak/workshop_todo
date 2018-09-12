@@ -18,5 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('todo', 'Api\TodosController');
-
+Route::put('todo/{id}/done', 'Api\TodosController@doneItem');
 Route::delete('todo', 'Api\TodosController@emptyItems');
