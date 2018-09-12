@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use \App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Todo;
+
 class TodosController extends Controller
 {
     /**
@@ -14,8 +16,14 @@ class TodosController extends Controller
      */
     public function index()
     {
-        //
-        echo 'list todos';
+        try {
+            $todo_items = Todo::get();
+            dd($todo_items);
+
+            return respose()->json([], 200);
+        } catch(\Exception $e) {
+            return respose()->json([], 500);
+        }
     }
 
     /**
