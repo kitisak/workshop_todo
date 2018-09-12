@@ -119,7 +119,15 @@ class TodosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $todo = \App\Models\Todo::find($id);
+
+        if (empty($todo)) {
+            return response()->json(['error' => 'Not found Todo Item.'], 422);
+        }
+
+        $todo->delete();
+
+        return response()->json(['status' => 'success'], 200);
     }
 
     public function doneItem($id)
