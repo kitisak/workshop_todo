@@ -36,7 +36,13 @@ class TodosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $todo = new \App\Models\Todo;
+        $todo->message = $request->input('message');
+        $todo->save();
+
+        $response = $todo->toJson();
+
+        return $response;
     }
 
     /**
